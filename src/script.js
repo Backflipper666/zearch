@@ -26,6 +26,7 @@ const searchStates = async (searchText) => {
       console.log('owner: ', owner);
       console.log('stars: ', stars);
       // document.createElement('');
+      search.value = null;
     });
   }
 };
