@@ -14,7 +14,7 @@ const searchStates = async (searchText) => {
     matches = [];
     matchList.innerHTML = '';
   }
-  debouncedFn(matches);
+  outputHtml(matches);
 };
 
 function outputHtml(matches) {
@@ -34,7 +34,7 @@ function outputHtml(matches) {
   }
 }
 
-search.addEventListener('input', () => searchStates(search.value));
+search.addEventListener('input', () => debouncedSearchStates(search.value));
 
 const debounce = (func, delay = 500) => {
   let inDebounce;
@@ -47,3 +47,5 @@ const debounce = (func, delay = 500) => {
 };
 
 const debouncedFn = debounce(outputHtml);
+
+const debouncedSearchStates = debounce(searchStates);
