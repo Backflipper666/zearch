@@ -25,17 +25,27 @@ const searchStates = async (searchText) => {
       console.log('name: ', name);
       console.log('owner: ', owner);
       console.log('stars: ', stars);
+      const wrapper = document.createElement('div');
       const p = document.createElement('p');
       p.textContent = `Name: ${name}`;
-      chart.append(p);
+      wrapper.append(p);
 
       const pOwner = document.createElement('p');
       pOwner.textContent = `Owner: ${owner}`;
-      chart.append(pOwner);
+      wrapper.append(pOwner);
 
       const pStars = document.createElement('p');
       pStars.textContent = `Stars: ${stars}`;
-      chart.append(pStars);
+      wrapper.append(pStars);
+
+      const remove = document.createElement('img');
+      remove.src = './remove.svg';
+
+      chart.appendChild(wrapper);
+      remove.addEventListener('click', () => {
+        chart.removeChild(wrapper);
+      });
+      wrapper.appendChild(remove);
 
       search.value = null;
     });
