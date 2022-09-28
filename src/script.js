@@ -2,12 +2,13 @@ const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
 
 const searchStates = async (searchText) => {
-  const res = await fetch('./data/states.json');
+  url3 = `https://api.github.com/search/repositories?q=${searchText}`;
+  const res = await fetch(url3);
   const states = await res.json();
-
-  let matches = states.filter((state) => {
+  console.log(states.items);
+  let matches = states.items.filter((item) => {
     const regex = new RegExp(`^${searchText}`, 'gi');
-    return state.name.match(regex || state.abbr.match(regex));
+    return item.name.match(regex || item.full_name.match(regex));
   });
   if (searchText.length === 0) {
     matches = [];
@@ -22,8 +23,8 @@ const outputHtml = (matches) => {
       .map(
         (match) => `
         <div class="card card-body mb-1">
-        <h4>${match.name}(${match.abbr}) <span class="text-primary">${match.capital}</span></h4>
-        <small>Lat: ${match.lat} / Long: ${match.long}</small>
+        <h4>${match.name}(${match.owner.login}) <span class="text-primary">${match.stargazers_count}</span></h4>
+        <small>Lat: ${match.stargazers_count} / Long: ${match.stargazers_count}</small>
         </div>
         `
       )
