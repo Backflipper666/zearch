@@ -2,7 +2,7 @@ const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
 
 const searchStates = async (searchText) => {
-  url3 = `https://api.github.com/search/repositories?q=${searchText}`;
+  url3 = `https://api.github.com/search/repositories?q=${searchText}&per_page=5`;
   const res = await fetch(url3);
   const states = await res.json();
   console.log(states.items);
@@ -35,3 +35,15 @@ const outputHtml = (matches) => {
 };
 
 search.addEventListener('input', () => searchStates(search.value));
+
+const debounce = (func, delay) => {
+  let inDebounce;
+  return function () {
+    const context = this;
+    const args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => func.apply(context, args), delay);
+  };
+};
+
+const debouncedFn = debounce(searchStates, 1000);
