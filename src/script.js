@@ -1,5 +1,6 @@
 const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
+const chart = document.querySelector('.chart');
 
 const searchStates = async (searchText) => {
   url3 = `https://api.github.com/search/repositories?q=${searchText}&per_page=5`;
@@ -15,6 +16,18 @@ const searchStates = async (searchText) => {
     matchList.innerHTML = '';
   }
   outputHtml(matches);
+  console.log(matchList);
+  console.log('matchList.children', matchList.childNodes);
+  const kids = matchList.childNodes;
+  for (let kid of kids) {
+    kid.addEventListener('click', () => {
+      const [name, owner, stars] = kid.textContent.split('-');
+      console.log('name: ', name);
+      console.log('owner: ', owner);
+      console.log('stars: ', stars);
+      // document.createElement('');
+    });
+  }
 };
 
 function outputHtml(matches) {
@@ -22,9 +35,8 @@ function outputHtml(matches) {
     const html = matches
       .map(
         (match) => `
-        <div class="card card-body mb-1">
-        <h4>${match.name}(${match.owner.login}) <span class="text-primary">${match.stargazers_count}</span></h4>
-        <small>Lat: ${match.stargazers_count} / Long: ${match.stargazers_count}</small>
+        <div class="card card-body mb-1"><p>${match.name}-${match.owner.login}-${match.stargazers_count}</p>
+       
         </div>
         `
       )
