@@ -6,7 +6,7 @@ const searchStates = async (searchText) => {
   url3 = `https://api.github.com/search/repositories?q=${searchText}&per_page=5`;
   const res = await fetch(url3);
   const states = await res.json();
-  console.log(states.items);
+
   let matches = states.items.filter((item) => {
     const regex = new RegExp(`^${searchText}`, 'gi');
     return item.name.match(regex || item.full_name.match(regex));
@@ -16,38 +16,12 @@ const searchStates = async (searchText) => {
     matchList.innerHTML = '';
   }
   outputHtml(matches);
-  console.log(matchList);
-  console.log('matchList.children', matchList.childNodes);
+
   const kids = matchList.childNodes;
   for (let kid of kids) {
     kid.addEventListener('click', () => {
       const [name, owner, stars] = kid.textContent.split('-');
-      console.log('name: ', name);
-      console.log('owner: ', owner);
-      console.log('stars: ', stars);
-      const wrapper = document.createElement('div');
-      const p = document.createElement('p');
-      p.textContent = `Name: ${name}`;
-      wrapper.append(p);
-
-      const pOwner = document.createElement('p');
-      pOwner.textContent = `Owner: ${owner}`;
-      wrapper.append(pOwner);
-
-      const pStars = document.createElement('p');
-      pStars.textContent = `Stars: ${stars}`;
-      wrapper.append(pStars);
-
-      const remove = document.createElement('img');
-      remove.src = './remove.svg';
-
-      chart.appendChild(wrapper);
-      remove.addEventListener('click', () => {
-        chart.removeChild(wrapper);
-      });
-      wrapper.appendChild(remove);
-
-      search.value = null;
+      addRepo(name, owner, stars);
     });
   }
 };
@@ -66,6 +40,32 @@ function outputHtml(matches) {
 
     matchList.innerHTML = html;
   }
+}
+
+function addRepo(name, owner, stars) {
+  const wrapper = document.createElement('div');
+  const p = document.createElement('p');
+  p.textContent = `Name: ${name}`;
+  wrapper.append(p);
+
+  const pOwner = document.createElement('p');
+  pOwner.textContent = `Owner: ${owner}`;
+  wrapper.append(pOwner);
+
+  const pStars = document.createElement('p');
+  pStars.textContent = `Stars: ${stars}`;
+  wrapper.append(pStars);
+
+  const remove = document.createElement('img');
+  remove.src = './remove.svg';
+
+  chart.appendChild(wrapper);
+  remove.addEventListener('click', () => {
+    chart.removeChild(wrapper);
+  });
+  wrapper.appendChild(remove);
+
+  search.value = null;
 }
 
 search.addEventListener('input', () => debouncedSearchStates(search.value));
