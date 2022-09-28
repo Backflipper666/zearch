@@ -25,7 +25,18 @@ const searchStates = async (searchText) => {
       console.log('name: ', name);
       console.log('owner: ', owner);
       console.log('stars: ', stars);
-      // document.createElement('');
+      const p = document.createElement('p');
+      p.textContent = `Name: ${name}`;
+      chart.append(p);
+
+      const pOwner = document.createElement('p');
+      pOwner.textContent = `Owner: ${owner}`;
+      chart.append(pOwner);
+
+      const pStars = document.createElement('p');
+      pStars.textContent = `Stars: ${stars}`;
+      chart.append(pStars);
+
       search.value = null;
     });
   }
