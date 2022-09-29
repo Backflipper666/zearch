@@ -31,7 +31,7 @@ function outputHtml(matches) {
     const html = matches
       .map(
         (match) => `
-        <div class="card card-body mb-0"><p>${match.name}<i hidden>-${match.owner.login}-${match.stargazers_count}</i></p>
+        <div class="card card-body mb-0"><p class="para">${match.name}<i hidden>-${match.owner.login}-${match.stargazers_count}</i></p>
        
         </div>
         `
