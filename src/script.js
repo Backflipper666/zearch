@@ -44,19 +44,25 @@ function outputHtml(matches) {
 
 function addRepo(name, owner, stars) {
   const wrapper = document.createElement('div');
+  wrapper.classList.add('wrapper');
+
   const p = document.createElement('p');
+  p.classList.add('name');
   p.textContent = `Name: ${name}`;
   wrapper.append(p);
 
   const pOwner = document.createElement('p');
+  pOwner.classList.add('owner');
   pOwner.textContent = `Owner: ${owner}`;
   wrapper.append(pOwner);
 
   const pStars = document.createElement('p');
+  pStars.classList.add('stars');
   pStars.textContent = `Stars: ${stars}`;
   wrapper.append(pStars);
 
   const remove = document.createElement('img');
+  remove.classList.add('remove');
   remove.src = './remove.svg';
 
   chart.appendChild(wrapper);
