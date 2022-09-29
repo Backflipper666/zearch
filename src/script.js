@@ -63,7 +63,7 @@ function addRepo(name, owner, stars) {
 
   const remove = document.createElement('img');
   remove.classList.add('remove');
-  remove.src = './remove.svg';
+  remove.src = './src/remove.svg';
 
   chart.appendChild(wrapper);
   remove.addEventListener('click', () => {
